@@ -38,12 +38,15 @@ ON ri.emp_no = de.emp_no
 WHERE de.to_date = ('9999-01-01');
 
 -- Employee count by department number
-SELECT COUNT(ce.emp_no), de.dept_no
+SELECT COUNT(ce.emp_no), d.dept_name
+INTO dept_count
 FROM current_emp as ce
 LEFT JOIN dept_emp as de
 ON ce.emp_no = de.emp_no
-GROUP BY de.dept_no
-ORDER BY de.dept_no;
+INNER JOIN departments as d
+ON de.dept_no = d.dept_no
+GROUP BY d.dept_name
+ORDER BY d.dept_name;
 
 -- Retiring employees
 SELECT e.emp_no, e.first_name,
@@ -87,40 +90,3 @@ ON (de.dept_no = d.dept_no);
 
 SELECT * FROM dept_info
 where dept_name IN ('Sales', 'Development');
-
-
-
-
--- -- -- -- -- --
--- THE RIGHT WAY
--- -- -- -- -- --
-
-SELECT e.emp_no, e.first_name, e.last_name, 
-	t.title, t.from_date,t.to_date,
-	s.salary
-INTO retirees
-FROM employees as e
-INNER JOIN titles as t
-ON (e.emp_no = t.emp_no)
-INNER JOIN salaries as s
-ON (e.emp_no = s.emp_no)
-INNER JOIN dept_emp as de
-ON (e.emp_no = de.emp_no)
-WHERE (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31')  
-	 AND (de.to_date = '9999-01-01');
-
--- Ensure this is their latest position
-SELECT * 
-INTO ordered_retirees
-FROM retirees ORDER BY from_date DESC;
-
-SELECT DISTINCT ON (emp_no) * 
-INTO mentor
-FROM ordered_retirees;
-
-
--- Count number of retirees per position
-SELECT m.title, COUNT(m.emp_no) 
-INTO title_count
-FROM mentor as m
-GROUP BY title;
