@@ -45,10 +45,6 @@ ON ce.emp_no = de.emp_no
 GROUP BY de.dept_no
 ORDER BY de.dept_no;
 
-
-
-
-
 -- Retiring employees
 SELECT e.emp_no, e.first_name,
 	e.last_name, e.gender,
@@ -95,7 +91,10 @@ where dept_name IN ('Sales', 'Development');
 
 
 
+-- -- -- -- -- --
 -- THE RIGHT WAY
+-- -- -- -- -- --
+
 SELECT e.emp_no, e.first_name, e.last_name, 
 	t.title, t.from_date,t.to_date,
 	s.salary
@@ -121,7 +120,7 @@ FROM ordered_retirees;
 
 
 -- Count number of retirees per position
-SELECT r.title, COUNT(r.emp_no) 
+SELECT m.title, COUNT(m.emp_no) 
 INTO title_count
-FROM ordered_retirees as r
+FROM mentor as m
 GROUP BY title;
