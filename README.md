@@ -24,7 +24,7 @@ Pewlett-Hackard requested an analysis of employees eligible for retirement in ho
 Pewlett-Hackard's first request was to idnetify all employees eligible for retirement. This analysis entailed identifying employees who are still working at the company, had experience in the position and were approaching retirment age. The list can be found [here.](https://github.com/JasmeerSangha/Pewlett-Hackard-Analysis/blob/master/Challenge/current_retiring_emp.csv) 
 __Note:__ Employees who have changed position in the company will appear multiple times within the first queries therefore the date needed to be filtered for their most recent positons:
 
-`SELECT * INTO current_emp
+`SELECT * INTO current_retiring_emp
 FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY emp_no ORDER BY from_date DESC) AS title_count
 	 From emp_title) withtitle_count
 	 where title_count =1;`
