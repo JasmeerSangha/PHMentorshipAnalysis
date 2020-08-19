@@ -1,4 +1,4 @@
-# Pewlett-Hackard-Analysis
+# PH Mentorship Analysis
 
 ## Overview
 I have been requested to identify potential mentors approaching retirement for Pewlett Hackard as the bulk of their employees are aging out of the system. Using PostgreSQL, queries were made on the raw csv files located inside the [Data folder](https://github.com/JasmeerSangha/Pewlett-Hackard-Analysis/tree/master/Data). Quick DBD was used to create  an Entity Relationship Diagram (ERD) for said raw csv files:
